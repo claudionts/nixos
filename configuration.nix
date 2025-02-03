@@ -14,7 +14,34 @@ in
     (import "${home-manager}/nixos")
   ];
 
+  # for global user
+  users.defaultUserShell = pkgs.zsh;
+
+  # For a specific user
+  users.users.claudio.shell = pkgs.zsh;
+  # enable zsh and oh my zsh
+  programs = {
+    zsh = {
+      enable = true;
+      autosuggestions.enable = true;
+      zsh-autoenv.enable = true;
+      syntaxHighlighting.enable = true;
+      ohMyZsh = {
+        enable = true;
+        theme = "robbyrussell";
+        plugins = [
+          "git"
+          "npm"
+          "history"
+          "node"
+          "rust"
+          "deno"
+        ];
+      };
+    };
+  };
   home-manager.users.claudio = {
+
     #Git configuration
     programs.git = {
       enable = true;
@@ -136,6 +163,12 @@ in
     pkg-config
     git
     elixir
+    erlang
+    go
+    gopls
+    elixir-ls
+    ripgrep
+    zsh
     neovim
     google-chrome
     nixfmt-rfc-style
