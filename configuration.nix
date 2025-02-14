@@ -110,6 +110,9 @@ in
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
+  services.openssh.enable = true;
+
+  networking.firewall.allowedTCPPorts = [ 22 ];
 
   # Enable sound with pipewire.
   hardware.pulseaudio.enable = false;
@@ -127,6 +130,10 @@ in
     #media-session.enable = true;
   };
 
+  users.users.root.openssh.authorizedKeys.keys = [
+    ''ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIywXCJvuYxPSDXk/tNY+pTCyJW+bXbZtJ3YQH/jDNHp joao@Joaos-MacBook-Pro.local''
+    ''ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIO/zA4tBQIJTlEyqlrBtHL6G92BSyF7igftzb3zk1zvG claudionts@gmail.com''
+  ];
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
   # Define a user account. Don't forget to set a password with ‘passwd’.
@@ -137,6 +144,7 @@ in
       "networkmanager"
       "wheel"
     ];
+
     packages = with pkgs; [
       #  thunderbird
     ];
