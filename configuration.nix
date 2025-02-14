@@ -110,10 +110,6 @@ in
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
-  services.openssh.enable = true;
-
-  networking.firewall.allowedTCPPorts = [ 22 ];
-
   # Enable sound with pipewire.
   hardware.pulseaudio.enable = false;
   security.rtkit.enable = true;
@@ -130,9 +126,17 @@ in
     #media-session.enable = true;
   };
 
+  #Openssh config
+
+  services.openssh = {
+    enable = true;
+    settings.PermitRootLogin = "yes"; # Opcional: impede login direto como root
+    settings.PasswordAuthentication = false; # Opcional: desativa autenticação por senha, recomenda-se usar chave SSH
+  };
+  networking.firewall.allowedTCPPorts = [ 22 ];
   users.users.root.openssh.authorizedKeys.keys = [
     ''ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIywXCJvuYxPSDXk/tNY+pTCyJW+bXbZtJ3YQH/jDNHp joao@Joaos-MacBook-Pro.local''
-    ''ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIO/zA4tBQIJTlEyqlrBtHL6G92BSyF7igftzb3zk1zvG claudionts@gmail.com''
+    ''ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPWkDdEXgI2cMb8LQIQFDpvrCUvNxKkTaL2h4FsOESdX jose.csilva@BRRIOMN045510.local''
   ];
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
